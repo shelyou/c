@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VCV</title>
+  
+  <!-- CSS langsung di dalam tag <style> -->
+  <style>
+    /* CSS untuk banner */
+    .banner {
+      background: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .banner-title {
+      font-size: 36px;
+    }
+
+    .banner-subtitle {
+      font-size: 24px;
+    }
+
+    /* CSS untuk balance */
+    .balance-section {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    .balance-item {
+      text-align: center;
+    }
+
+    .balance-item img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .digital-font {
+      font-family: 'Digital-7', sans-serif;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    /* CSS untuk galeri */
+    .gallery-background {
+      position: relative;
+      padding: 5px;
+      background-image: url('k.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 10px;
+      width: 100%;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    }
+
+    .gallery-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 3px;
+      flex-wrap: nowrap;
+      scroll-snap-type: x mandatory;
+      height: 660px;
+      overflow-y: hidden;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      grid-gap: 3px;
+      width: max-content;
+      scroll-snap-align: start;
+      justify-items: center;
+      flex-wrap: nowrap;
+    }
+
+    .gallery-item {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 100px;
+      perspective: 1000px;
+      transition: all 0.3s ease-in-out;
+      border-radius: 10px;
+      margin: 3px;
+    }
+
+    .gallery-item-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+
+    .gallery-item.flipped .gallery-item-inner {
+      transform: rotateY(180deg);
+    }
+
+    .gallery-front,
+    .gallery-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .gallery-front img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 65%;
+      height: 65%;
+      object-fit: cover;
+    }
+
+    .gallery-back {
+      background: url('k.png') no-repeat center center/cover;
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="banner">
+      <h1 class="banner-title">Nama Web</h1>
+      <h2 class="banner-subtitle">Nama Lainnya Web</h2>
+    </div>
+
+    <div class="balance-section">
+      <div class="balance-item">
+        <img src="ETH.PNG" alt="ETH Logo">
+        <div class="digital-font">198373797</div>
+      </div>
+      <div class="balance-item">
+        <img src="BTC.PNG" alt="BTC Logo">
+        <div class="digital-font">198373797</div>
+      </div>
+      <div class="balance-item">
+        <img src="USDT.PNG" alt="USDT Logo">
+        <div class="digital-font">198373797</div>
+      </div>
+    </div>
+
+    <div class="gallery-background">
+      <div class="gallery-container">
+        <div class="gallery">
+          <!-- Gallery items will be dynamically created by JS -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript langsung di dalam tag <script> -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const galleryContainer = document.querySelector('.gallery');
+      
+      const galleryItems = [
+        { src: 'image1.jpg', alt: 'Image 1', title: 'Title 1' },
+        { src: 'image2.jpg', alt: 'Image 2', title: 'Title 2' },
+        { src: 'image3.jpg', alt: 'Image 3', title: 'Title 3' },
+        { src: 'image4.jpg', alt: 'Image 4', title: 'Title 4' },
+      ];
+
+      galleryItems.forEach(item => {
+        const galleryItem = document.createElement('div');
+        galleryItem.classList.add('gallery-item');
+        
+        const galleryItemInner = document.createElement('div');
+        galleryItemInner.classList.add('gallery-item-inner');
+        
+        const galleryFront = document.createElement('div');
+        galleryFront.classList.add('gallery-front');
+        
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.alt;
+        galleryFront.appendChild(img);
+        
+        const galleryBack = document.createElement('div');
+        galleryBack.classList.add('gallery-back');
+        galleryBack.textContent = item.title;
+
+        galleryItemInner.appendChild(galleryFront);
+        galleryItemInner.appendChild(galleryBack);
+        galleryItem.appendChild(galleryItemInner);
+
+        galleryItem.addEventListener('click', function () {
+          galleryItem.classList.toggle('flipped');
+        });
+
+        galleryContainer.appendChild(galleryItem);
+      });
+    });
+  </script>
+
+</body>
+</html>
