@@ -151,3 +151,31 @@ const countries = [
   { name: "Micronesia", img: "IMG_8514.png" },
   { name: "Nauru", img: "IMG_8514.png" }
 ];
+// Mendapatkan elemen untuk galeri
+const galleryContainer = document.querySelector('.gallery-container');
+
+// Menambahkan item galeri berdasarkan data countries
+countries.forEach((country) => {
+  const item = document.createElement('div');
+  item.classList.add('gallery-item');
+
+  const itemInner = document.createElement('div');
+  itemInner.classList.add('gallery-item-inner');
+
+  const front = document.createElement('div');
+  front.classList.add('gallery-front');
+  front.innerHTML = `<img src="${country.img}" alt="${country.name}">`;
+
+  const back = document.createElement('div');
+  back.classList.add('gallery-back');
+  back.textContent = country.name;
+
+  itemInner.appendChild(front);
+  itemInner.appendChild(back);
+  item.appendChild(itemInner);
+  galleryContainer.appendChild(item);
+
+  // Tambahkan event listener untuk flip
+  item.addEventListener('click', () => flipImage(item));
+  back.addEventListener('click', (event) => handleBackClick(country.name, event));
+});
