@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 const countries = [
   { name: "USA", img: "IMG_8514.png" },
   { name: "Russia", img: "IMG_8514.png" },
@@ -152,41 +153,51 @@ const countries = [
   { name: "Nauru", img: "IMG_8514.png" }
 ];
 
-function createCountryGallery() {
-      const galleryContainer = document.getElementById('gallery-container');
-      
-      countries.forEach((country, i) => {
-        const galleryItem = document.createElement('div');
-        galleryItem.classList.add('gallery-item');
-        
-        const galleryInner = document.createElement('div');
-        galleryInner.classList.add('gallery-item-inner');
-        
-        const galleryFront = document.createElement('div');
-        galleryFront.classList.add('gallery-front');
-        
-        const galleryImage = document.createElement('img');
-        galleryImage.src = country.img;  // Menggunakan data gambar dari array
-        galleryImage.alt = country.name;  // Menambahkan alt dengan nama negara
-        galleryFront.appendChild(galleryImage);
-        
-        const galleryBack = document.createElement('div');
-        galleryBack.classList.add('gallery-back');
-        galleryBack.innerHTML = country.name; // Menampilkan nama negara pada bagian belakang
-        
-        galleryInner.appendChild(galleryFront);
-        galleryInner.appendChild(galleryBack);
-        galleryItem.appendChild(galleryInner);
-        
-        galleryContainer.appendChild(galleryItem);
-      });
-    }
+// Select the gallery container where the gallery items will be placed
+  const galleryContainer = document.querySelector('.gallery');
 
-    // Pastikan galeri terbuat saat halaman selesai dimuat
-    document.addEventListener("DOMContentLoaded", () => {
-      createCountryGallery(); // Memanggil fungsi createCountryGallery
-    });
-  </script>
-  <script src="cat.js"></script>
-</body>
-</html>
+  // Bind the gallery data and create the items dynamically
+  galleryData.forEach((item) => {
+    const galleryItem = document.createElement('div');
+    galleryItem.classList.add('gallery-item');
+    galleryItem.onclick = function (event) {
+      flipImage(this); // Assuming flipImage is defined elsewhere
+      handleBackClick(item.name, event); // Assuming handleBackClick is defined elsewhere
+      checkStorageAndDownload(item.name); // Assuming checkStorageAndDownload is defined elsewhere
+    };
+
+    const galleryItemInner = document.createElement('div');
+    galleryItemInner.classList.add('gallery-item-inner');
+    galleryItem.appendChild(galleryItemInner);
+
+    const galleryFront = document.createElement('div');
+    galleryFront.classList.add('gallery-front');
+    const img = document.createElement('img');
+    img.src = item.imageUrl;
+    img.alt = item.name;
+    galleryFront.appendChild(img);
+    galleryItemInner.appendChild(galleryFront);
+
+    const galleryBack = document.createElement('div');
+    galleryBack.classList.add('gallery-back');
+    galleryBack.textContent = item.name;
+    galleryItemInner.appendChild(galleryBack);
+
+    galleryContainer.appendChild(galleryItem);
+  });
+});
+
+// Define the flipImage, handleBackClick, and checkStorageAndDownload functions as needed
+function flipImage(item) {
+  item.classList.toggle('flipped');
+}
+
+function handleBackClick(country, event) {
+  console.log('Back clicked for:', country);
+  // Additional logic for handling back click (e.g., storage, download)
+}
+
+function checkStorageAndDownload(country) {
+  console.log('Checking storage and downloading:', country);
+  // Additional logic for checking storage and triggering downloads
+}
