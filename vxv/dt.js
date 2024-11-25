@@ -151,34 +151,42 @@ const countries = [
   { name: "Micronesia", img: "IMG_8514.png" },
   { name: "Nauru", img: "IMG_8514.png" }
 ];
+
 function createCountryGallery() {
-  const galleryContainer = document.getElementById('gallery-container');
-  
-  // Tambahkan item-item galeri ke dalam container berdasarkan data
-  countries.forEach((country, i) => {
-    const galleryItem = document.createElement('div');
-    galleryItem.classList.add('gallery-item');
-    
-    const galleryInner = document.createElement('div');
-    galleryInner.classList.add('gallery-item-inner');
-    
-    const galleryFront = document.createElement('div');
-    galleryFront.classList.add('gallery-front');
-    
-    // Menggunakan gambar dari data
-    const galleryImage = document.createElement('img');
-    galleryImage.src = country.img;  // Menggunakan data gambar dari array
-    galleryImage.alt = country.name;  // Menambahkan alt dengan nama negara
-    galleryFront.appendChild(galleryImage);
-    
-    const galleryBack = document.createElement('div');
-    galleryBack.classList.add('gallery-back');
-    galleryBack.innerHTML = country.name; // Menampilkan nama negara pada bagian belakang
-    
-    galleryInner.appendChild(galleryFront);
-    galleryInner.appendChild(galleryBack);
-    galleryItem.appendChild(galleryInner);
-    
-    galleryContainer.appendChild(galleryItem);
-  });
-}
+      const galleryContainer = document.getElementById('gallery-container');
+      
+      countries.forEach((country, i) => {
+        const galleryItem = document.createElement('div');
+        galleryItem.classList.add('gallery-item');
+        
+        const galleryInner = document.createElement('div');
+        galleryInner.classList.add('gallery-item-inner');
+        
+        const galleryFront = document.createElement('div');
+        galleryFront.classList.add('gallery-front');
+        
+        const galleryImage = document.createElement('img');
+        galleryImage.src = country.img;  // Menggunakan data gambar dari array
+        galleryImage.alt = country.name;  // Menambahkan alt dengan nama negara
+        galleryFront.appendChild(galleryImage);
+        
+        const galleryBack = document.createElement('div');
+        galleryBack.classList.add('gallery-back');
+        galleryBack.innerHTML = country.name; // Menampilkan nama negara pada bagian belakang
+        
+        galleryInner.appendChild(galleryFront);
+        galleryInner.appendChild(galleryBack);
+        galleryItem.appendChild(galleryInner);
+        
+        galleryContainer.appendChild(galleryItem);
+      });
+    }
+
+    // Pastikan galeri terbuat saat halaman selesai dimuat
+    document.addEventListener("DOMContentLoaded", () => {
+      createCountryGallery(); // Memanggil fungsi createCountryGallery
+    });
+  </script>
+  <script src="cat.js"></script>
+</body>
+</html>
